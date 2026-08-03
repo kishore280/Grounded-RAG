@@ -1,6 +1,12 @@
+import re
+
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from rank_bm25 import BM25Okapi
+
+
+def _tokenize(text: str) -> list[str]:
+    return re.findall(r"\w+", text.lower())
 
 
 def dense_search(query: str, chunks: list[dict], k: int) -> list[str]:
@@ -18,11 +24,15 @@ def dense_search(query: str, chunks: list[dict], k: int) -> list[str]:
 
 
 def bm25_search(query: str, chunks: list[dict], k: int) -> list[str]:
-    # tokenize each chunk's text (simple .split() or basic word tokenization)
-    # build BM25Okapi index over tokenized chunks
-    # tokenize the query the same way, get BM25 scores per chunk
-    # sort chunks by score descending, return top-k chunk IDs
-    pass
+    # BM25 (Robertson & Zaragoza 2009, building on Robertson & Walker's
+    # original 1994 SIGIR "Okapi" paper -- see also this writeup:
+    # https://arpitbhayani.me/blogs/bm25/)
+    tokenized_chunks = [_tokenize(chunk["text"]) for chunk in chunks]
+    bm25 = BM25Okapi(tokenized_chunks)
+    tokenized_query = _tokenize(query)
+    scores = bm25.get_scores(tokenized_query)
+    ranked = sorted(zip(chunks, scores), key=lambda pair: pair[1], reverse=True)
+    return [chunk["id"] for chunk, _ in ranked[:k]]
 
 
 def hybrid_search(query: str, chunks: list[dict], k: int) -> list[str]:
