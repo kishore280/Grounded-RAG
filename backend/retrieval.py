@@ -36,10 +36,18 @@ def bm25_search(query: str, chunks: list[dict], k: int) -> list[str]:
 
 
 def hybrid_search(query: str, chunks: list[dict], k: int) -> list[str]:
-    # get ranked chunk ID lists from dense_search and bm25_search (rank k high
-    # enough to cover fusion candidates, not just final k)
-    # apply Reciprocal Rank Fusion: for each chunk ID, score = sum over each
-    # ranking list of 1 / (rank_constant + rank_in_that_list), rank_constant
-    # usually 60
-    # sort chunk IDs by fused RRF score descending, return top-k
-    pass
+    # RRF (Cormack, Clarke & Buettcher, SIGIR 2009 --
+    # https://dl.acm.org/doi/10.1145/1571941.1572114 -- 
+    dense_ranked = dense_search(query, chunks, k=20)
+    bm25_ranked = bm25_search(query, chunks, k=20)
+    ranked_ids = set(dense_ranked + bm25_ranked)
+    fused_scores = {}
+    for chunk_id in ranked_ids:
+        score = 0
+        for ranked_list in [dense_ranked, bm25_ranked]:
+            if chunk_id in ranked_list:
+                rank = ranked_list.index(chunk_id) + 1
+                score += 1 / (60 + rank)
+        fused_scores[chunk_id] = score
+    ranked = sorted(fused_scores.items(), key=lambda pair: pair[1], reverse=True)
+    return [chunk_id for chunk_id, _ in ranked[:k]]
