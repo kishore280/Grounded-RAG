@@ -3,14 +3,43 @@ import fitz
 
 def chunk_pdf(path: str) -> list[dict]:
     # open doc with fitz
-    # loop pages, get blocks with page.get_text("blocks")
-    # skip block_type != 0 (images), skip text < 30 chars
-    # append {"id": f"C{chunk_id}", "text": ..., "source": path, "page": ..., "is_heading": ...}
-    # call _merge_heading_with_body before returning
-    pass
+    doc = fitz.open(path)
+    chunks = []
+    chunk_id = 0
+    for page_num, page in enumerate(doc):
+        blocks = page.get_text("blocks")
+        for block in blocks:
+            text = block[4]
+            block_type = block[6]
+            if block_type != 0:
+                continue
+            if len(text) < 30:
+                continue
+            stripped_text = text.strip()
+            is_heading = len(stripped_text) < 80 and not stripped_text.endswith((":", "?", "!","."))
+            chunks.append({
+                "id": f"C{chunk_id}",
+                "text": stripped_text,
+                "source": path,
+                "page": page_num,
+                "is_heading": is_heading,
+            })
+            chunk_id += 1
+    return _merge_heading_with_body(chunks)
 
 
 def _merge_heading_with_body(chunks: list[dict]) -> list[dict]:
-    # loop chunks, if current is_heading and next is not, merge their text
-    # re-index IDs after merging
-    pass
+    merged_chunks = []
+    i = 0
+    while i < len(chunks):
+        current = chunks[i]
+        if current["is_heading"] and i + 1 < len(chunks) and not chunks[i + 1]["is_heading"]:
+            current["text"] += " " + chunks[i + 1]["text"]
+            merged_chunks.append(current)
+            i += 2
+        else:
+            merged_chunks.append(current)
+            i += 1
+    for idx, chunk in enumerate(merged_chunks):
+        chunk["id"] = f"C{idx}"
+    return merged_chunks
