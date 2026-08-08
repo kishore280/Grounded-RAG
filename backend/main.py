@@ -2,6 +2,7 @@ import aiofiles
 from fastapi import FastAPI, UploadFile
 
 from backend import store
+from backend.evaluate import run_eval
 from backend.generate import generate_answer
 from backend.ingest import chunk_pdf
 from backend.retrieval import hybrid_search
@@ -38,3 +39,8 @@ async def chat(body: dict):
     answer = generate_answer(query, top_chunk_dicts)
     citations = verify_citations(answer, store.chunks)
     return {"answer": answer, "citations": citations, "citation_accuracy": citations["citation_accuracy"]}
+
+
+@app.post("/eval")
+async def eval_endpoint():
+    return run_eval(store.chunks, k=5)
