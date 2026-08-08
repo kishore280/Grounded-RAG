@@ -1,8 +1,8 @@
 import re
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from rank_bm25 import BM25Okapi
+from sentence_transformers import SentenceTransformer
 
 
 def _tokenize(text: str) -> list[str]:

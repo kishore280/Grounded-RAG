@@ -6,7 +6,8 @@ def chunk_pdf(path: str) -> list[dict]:
     doc = fitz.open(path)
     chunks = []
     chunk_id = 0
-    for page_num, page in enumerate(doc):
+    for page_num in range(len(doc)):
+        page = doc[page_num]
         blocks = page.get_text("blocks")
         for block in blocks:
             text = block[4]

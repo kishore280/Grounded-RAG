@@ -1,0 +1,11 @@
+{
+  "languages": {
+    "Python": {
+      "prettier": {
+        "parser": "",
+        "allowed": true
+      },
+      "format_on_save": "on"
+    }
+  }
+}
