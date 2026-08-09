@@ -2,7 +2,7 @@ import re
 
 
 def _meaningful_words(text: str) -> set[str]:
-    return {w for w in re.findall(r"\w+", text.lower()) if len(w) > 4}
+    return {w for w in re.findall(r"\w+", text.lower()) if len(w) > 3}
 
 
 def verify_citations(answer: str, chunks: list[dict]) -> dict:

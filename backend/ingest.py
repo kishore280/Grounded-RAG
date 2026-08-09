@@ -14,7 +14,9 @@ def chunk_pdf(path: str) -> list[dict]:
             block_type = block[6]
             if block_type != 0:
                 continue
-            if len(text) < 30:
+            # word count, not char count -- char count drops short-but-real
+            # lines like dates on sparse docs (e.g. certificates)
+            if len(text.split()) < 4:
                 continue
             stripped_text = text.strip()
             is_heading = len(stripped_text) < 80 and not stripped_text.endswith((":", "?", "!","."))
