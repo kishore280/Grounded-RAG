@@ -1,0 +1,84 @@
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.upload-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.error {
+  color: #e5484d;
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 240px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+.message p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--accent-bg);
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background: var(--social-bg, #f2f2f2);
+}
+
+.message .accuracy {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.input-row button {
+  padding: 8px 16px;
+  border-radius: 6px;
+}
