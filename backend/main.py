@@ -1,5 +1,6 @@
 import aiofiles
 from fastapi import FastAPI, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend import store
 from backend.evaluate import run_eval
@@ -9,6 +10,14 @@ from backend.retrieval import hybrid_search
 from backend.verify import verify_citations
 
 app = FastAPI()
+
+# runs on Vite's default port, backend on FastAPI's default port
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/upload")
