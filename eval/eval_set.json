@@ -1,82 +1,82 @@
 [
   {
     "question": "What is the application fee amount?",
-    "relevant_chunk_ids": ["C104"]
+    "relevant_chunk_ids": ["C56"]
   },
   {
     "question": "application fee amount",
-    "relevant_chunk_ids": ["C104"]
+    "relevant_chunk_ids": ["C56"]
   },
   {
     "question": "What is the age limit for candidates?",
-    "relevant_chunk_ids": ["C90"]
+    "relevant_chunk_ids": ["C33"]
   },
   {
     "question": "age limit 28 years",
-    "relevant_chunk_ids": ["C90"]
+    "relevant_chunk_ids": ["C33"]
   },
   {
     "question": "How do I upload my photo and signature?",
-    "relevant_chunk_ids": ["C115", "C116", "C117"]
+    "relevant_chunk_ids": ["C86", "C88", "C95"]
   },
   {
     "question": "photo dimensions pixels signature upload",
-    "relevant_chunk_ids": ["C116", "C117"]
+    "relevant_chunk_ids": ["C88", "C95"]
   },
   {
     "question": "What is the last date to pay the application fee?",
-    "relevant_chunk_ids": ["C108"]
+    "relevant_chunk_ids": ["C68"]
   },
   {
     "question": "Who is exempted from paying the application fee?",
-    "relevant_chunk_ids": ["C112"]
+    "relevant_chunk_ids": ["C79"]
   },
   {
     "question": "women SC ST exservicemen fee exemption",
-    "relevant_chunk_ids": ["C112"]
+    "relevant_chunk_ids": ["C79"]
   },
   {
     "question": "What is the GATE paper code for Electronics and Communication Engineering?",
-    "relevant_chunk_ids": ["C50", "C51"]
+    "relevant_chunk_ids": ["C16"]
   },
   {
     "question": "GATE paper code mechanical engineering",
-    "relevant_chunk_ids": ["C54"]
+    "relevant_chunk_ids": ["C16"]
   },
   {
     "question": "What is the minimum aggregate percentage required for eligibility?",
-    "relevant_chunk_ids": ["C49"]
+    "relevant_chunk_ids": ["C16"]
   },
   {
     "question": "How are candidates selected for interview?",
-    "relevant_chunk_ids": ["C119"]
+    "relevant_chunk_ids": ["C107"]
   },
   {
     "question": "selection process ratio GATE score interview",
-    "relevant_chunk_ids": ["C119"]
+    "relevant_chunk_ids": ["C107"]
   },
   {
     "question": "How many marks are allocated for technical knowledge in the interview?",
-    "relevant_chunk_ids": ["C120"]
+    "relevant_chunk_ids": ["C108"]
   },
   {
     "question": "marks allocation presentation communication comprehension",
-    "relevant_chunk_ids": ["C121"]
+    "relevant_chunk_ids": ["C108"]
   },
   {
     "question": "How many marks are given for candidates from IIT IISc IIST or NIT?",
-    "relevant_chunk_ids": ["C122", "C123"]
+    "relevant_chunk_ids": ["C108"]
   },
   {
     "question": "What is the qualifying criteria aggregate percentage for UR and EWS category?",
-    "relevant_chunk_ids": ["C130"]
+    "relevant_chunk_ids": ["C112"]
   },
   {
     "question": "What is a No Objection Certificate required for?",
-    "relevant_chunk_ids": ["C102"]
+    "relevant_chunk_ids": ["C54"]
   },
   {
     "question": "NOC employer interview candidates",
-    "relevant_chunk_ids": ["C102"]
+    "relevant_chunk_ids": ["C54"]
   }
 ]

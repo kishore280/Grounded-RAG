@@ -1,25 +1,20 @@
-import fitz
+import re
+
+import pymupdf4llm
 
 
 def chunk_pdf(path: str) -> list[dict]:
-    # open doc with fitz
-    doc = fitz.open(path)
+    pages = pymupdf4llm.to_markdown(path, page_chunks=True)  # type: ignore[assignment]
     chunks = []
     chunk_id = 0
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        blocks = page.get_text("blocks")
+    for page in pages:
+        page_num = page["metadata"]["page_number"] - 1  # type: ignore[index]
+        blocks = re.split(r"\n\s*\n", page["text"])  # type: ignore[index]
         for block in blocks:
-            text = block[4]
-            block_type = block[6]
-            if block_type != 0:
+            stripped_text = block.strip()
+            if len(stripped_text.split()) < 4:
                 continue
-            # word count, not char count -- char count drops short-but-real
-            # lines like dates on sparse docs (e.g. certificates)
-            if len(text.split()) < 4:
-                continue
-            stripped_text = text.strip()
-            is_heading = len(stripped_text) < 80 and not stripped_text.endswith((":", "?", "!","."))
+            is_heading = stripped_text.startswith("#")
             chunks.append({
                 "id": f"C{chunk_id}",
                 "text": stripped_text,
